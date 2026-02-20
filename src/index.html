@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Clojure Quest</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>🧙</text></svg>">
+    <link rel="stylesheet" href="./styles.css">
+    <!-- Scittle (SCI) — Clojure interpreter for the browser -->
+    <script src="/scittle.js"></script>
+</head>
+<body>
+    <div id="game-container">
+        <!-- Shared Canvas -->
+        <canvas id="game-canvas" width="768" height="480" style="position:absolute;top:0;left:0;image-rendering:pixelated;"></canvas>
+
+        <!-- Title Screen -->
+        <div id="title-screen" class="screen active">
+            <div id="title-overlay">
+                <h1 id="title-text">The Clojure Quest</h1>
+                <p id="subtitle">A Coding Adventure for Young Wizards</p>
+                <div id="title-buttons">
+                    <button id="start-btn" class="btn">New Game</button>
+                    <button id="continue-btn" class="btn btn-secondary">Continue</button>
+                </div>
+                <p id="tagline">Learn Clojure through magic, dragons, and wolves!</p>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div id="scene-container">
+            </div>
+            <div id="ui-panel">
+                <div id="status-bar">
+                    <span id="world-display">The Enchanted Grove</span>
+                    <span id="location-display">Cottage</span>
+                    <span id="score-display">Score: 0/500</span>
+                </div>
+                <div id="message-box"></div>
+                <div id="input-area">
+                    <span id="prompt">&gt;</span>
+                    <input type="text" id="command-input" placeholder="Type a command..." autocomplete="off" spellcheck="false">
+                </div>
+                <div id="inventory-bar">
+                    <span class="inv-label">Inventory:</span>
+                    <div id="inventory-panel"><span class="empty-inv">Empty</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Win Screen -->
+        <div id="win-screen" class="screen">
+            <div id="win-content">
+                <h1>The Curse is Broken!</h1>
+                <p>You have mastered the ancient art of Clojure!</p>
+                <p id="final-score">Final Score: 0/500</p>
+                <p id="puzzle-count">Puzzles Solved: 0/30</p>
+                <p>From prefix notation to functional composition,<br>you've learned to think like a true programmer.</p>
+                <button id="play-again-btn" class="btn">Play Again</button>
+            </div>
+        </div>
+
+        <!-- Clojure Console (modal) -->
+        <div id="clojure-console" style="display:none">
+            <div id="clojure-header">
+                <span id="clojure-puzzle-title">Clojure REPL</span>
+                <button id="close-clojure" class="btn-close">✕</button>
+            </div>
+            <p id="clojure-puzzle-desc"></p>
+            <div id="clojure-output"></div>
+            <div id="clojure-input-area">
+                <span class="clj-prompt">user=&gt;</span>
+                <input type="text" id="clojure-input" placeholder="Type Clojure code..." autocomplete="off" spellcheck="false">
+            </div>
+            <p id="clojure-hint"></p>
+        </div>
+    </div>
+    <script type="module" src="./main.js"></script>
+</body>
+</html>

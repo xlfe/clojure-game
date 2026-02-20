@@ -1,0 +1,473 @@
+/* EGA-Style Adventure Game CSS */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Press Start 2P', monospace;
+    overflow: hidden;
+}
+
+#game-container {
+    width: 768px;
+    height: 480px;
+    background-color: #000055;
+    border: 4px solid #5555ff;
+    position: relative;
+    image-rendering: pixelated;
+    box-shadow: 0 0 30px #5555ff, 0 0 60px rgba(85, 85, 255, 0.3);
+}
+
+.screen {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Title Screen */
+#title-screen {
+    background: linear-gradient(180deg, #000033 0%, #000055 30%, #220033 70%, #000022 100%);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 15px;
+}
+
+#title-canvas {
+    width: 768px;
+    height: 240px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    border: 3px solid #5555ff;
+    margin-bottom: 12px;
+    box-shadow: 0 0 20px #5555ff, inset 0 0 30px rgba(0, 0, 50, 0.8);
+}
+
+#title-screen h1 {
+    color: #ffff55;
+    font-size: 22px;
+    text-shadow: 3px 3px #aa5500, 0 0 15px #ffaa00;
+    margin-bottom: 8px;
+    animation: titleGlow 2s ease-in-out infinite;
+    letter-spacing: 2px;
+}
+
+@keyframes titleGlow {
+    0%, 100% { text-shadow: 3px 3px #aa5500, 0 0 10px #ffff55; }
+    50% { text-shadow: 3px 3px #aa5500, 0 0 25px #ffffff, 0 0 40px #ffff55; }
+}
+
+#title-screen .subtitle {
+    color: #55ffff;
+    font-size: 10px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #55ffff;
+}
+
+#title-screen button, #win-screen button {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    padding: 15px 35px;
+    background: linear-gradient(180deg, #00cc00 0%, #00aa00 50%, #008800 100%);
+    color: #ffffff;
+    border: 3px solid #55ff55;
+    cursor: pointer;
+    margin: 8px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 0 #005500, 0 0 15px rgba(85, 255, 85, 0.3);
+    text-shadow: 1px 1px #005500;
+}
+
+#title-screen button:hover, #win-screen button:hover {
+    background: linear-gradient(180deg, #55ff55 0%, #44dd44 50%, #33bb33 100%);
+    color: #003300;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #005500, 0 0 25px rgba(85, 255, 85, 0.5);
+}
+
+#title-screen button:active, #win-screen button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #005500;
+}
+
+#title-screen .instructions {
+    color: #aaaaaa;
+    font-size: 8px;
+    margin-top: 20px;
+    max-width: 600px;
+    line-height: 1.8;
+}
+
+/* Game Screen */
+#game-screen {
+    flex-direction: column;
+    background-color: #000000;
+}
+
+#scene-container {
+    position: relative;
+    width: 768px;
+    height: 300px;
+    overflow: hidden;
+    border-bottom: 3px solid #5555ff;
+}
+
+#game-canvas {
+    width: 768px;
+    height: 300px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+#scene-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* UI Panel */
+#ui-panel {
+    flex: 1;
+    background: linear-gradient(180deg, #000066 0%, #000044 100%);
+    display: flex;
+    flex-direction: column;
+    padding: 10px 12px;
+}
+
+#message-box {
+    background-color: #000011;
+    border: 2px solid #5555ff;
+    border-radius: 3px;
+    padding: 10px;
+    min-height: 85px;
+    max-height: 85px;
+    overflow-y: auto;
+    margin-bottom: 8px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 50, 0.8);
+}
+
+#message-text {
+    color: #ffffff;
+    font-size: 9px;
+    line-height: 1.7;
+}
+
+#message-text .highlight {
+    color: #ffff55;
+    text-shadow: 0 0 5px #ffff55;
+}
+
+#message-text .success {
+    color: #55ff55;
+}
+
+#message-text .error {
+    color: #ff5555;
+}
+
+#message-text .lisp-code {
+    color: #55ffff;
+    background-color: #000033;
+    padding: 2px 5px;
+    border-radius: 2px;
+}
+
+#input-area {
+    display: flex;
+    align-items: center;
+    background-color: #000011;
+    border: 2px solid #5555ff;
+    border-radius: 3px;
+    padding: 6px 12px;
+    margin-bottom: 8px;
+}
+
+#input-area .prompt {
+    color: #55ff55;
+    font-size: 12px;
+    margin-right: 10px;
+    text-shadow: 0 0 8px #55ff55;
+}
+
+#command-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    outline: none;
+}
+
+#command-input::placeholder {
+    color: #444466;
+}
+
+/* Inventory Panel */
+#inventory-panel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+#inventory-label {
+    color: #ffff55;
+    font-size: 8px;
+    text-shadow: 0 0 5px #ffff55;
+}
+
+#inventory-items {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.inventory-item {
+    background: linear-gradient(180deg, #444444 0%, #333333 100%);
+    border: 2px solid #5555ff;
+    border-radius: 3px;
+    padding: 4px 8px;
+    color: #55ffff;
+    font-size: 7px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.inventory-item:hover {
+    background: linear-gradient(180deg, #5555ff 0%, #4444dd 100%);
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(85, 85, 255, 0.5);
+}
+
+/* Score Panel */
+#score-panel {
+    display: flex;
+    justify-content: space-between;
+    color: #aaaaaa;
+    font-size: 8px;
+}
+
+#location {
+    color: #55ff55;
+    text-shadow: 0 0 5px #55ff55;
+}
+
+/* LISP Console */
+#lisp-console {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 550px;
+    background-color: #000022;
+    border: 4px solid #55ffff;
+    border-radius: 5px;
+    z-index: 100;
+    box-shadow: 0 0 40px #55ffff, 0 0 80px rgba(85, 255, 255, 0.3);
+}
+
+#lisp-console.hidden {
+    display: none;
+}
+
+#lisp-header {
+    background: linear-gradient(180deg, #006666 0%, #005555 100%);
+    color: #55ffff;
+    padding: 10px 12px;
+    font-size: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 2px 2px 0 0;
+    text-shadow: 0 0 10px #55ffff;
+}
+
+#close-lisp {
+    background: linear-gradient(180deg, #cc0000 0%, #aa0000 100%);
+    color: white;
+    border: 2px solid #ff5555;
+    border-radius: 3px;
+    padding: 3px 10px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+#close-lisp:hover {
+    background: linear-gradient(180deg, #ff3333 0%, #dd0000 100%);
+    transform: scale(1.05);
+}
+
+#lisp-output {
+    height: 160px;
+    overflow-y: auto;
+    padding: 12px;
+    background-color: #000011;
+    color: #55ff55;
+    font-size: 9px;
+    line-height: 1.9;
+}
+
+#lisp-output .lisp-result {
+    color: #ffff55;
+    text-shadow: 0 0 5px #ffff55;
+}
+
+#lisp-output .lisp-error {
+    color: #ff5555;
+    text-shadow: 0 0 5px #ff5555;
+}
+
+#lisp-output .lisp-info {
+    color: #55ffff;
+}
+
+#lisp-input-area {
+    display: flex;
+    align-items: center;
+    background-color: #000022;
+    border-top: 2px solid #55ffff;
+    padding: 10px 12px;
+}
+
+.lisp-prompt {
+    color: #55ffff;
+    font-size: 10px;
+    margin-right: 10px;
+    text-shadow: 0 0 8px #55ffff;
+}
+
+#lisp-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #55ff55;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    outline: none;
+}
+
+#lisp-hint {
+    background: linear-gradient(180deg, #333311 0%, #222200 100%);
+    border-top: 2px solid #55ffff;
+    border-radius: 0 0 2px 2px;
+    padding: 10px 12px;
+    color: #ffff55;
+    font-size: 8px;
+    line-height: 1.7;
+}
+
+/* Win Screen */
+#win-screen {
+    background: linear-gradient(180deg, #003300 0%, #005500 30%, #003300 70%, #001100 100%);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+#win-screen h1 {
+    color: #55ff55;
+    font-size: 22px;
+    margin-bottom: 15px;
+    animation: winGlow 1s ease-in-out infinite;
+    text-shadow: 0 0 20px #55ff55;
+}
+
+@keyframes winGlow {
+    0%, 100% { text-shadow: 0 0 10px #55ff55; }
+    50% { text-shadow: 0 0 30px #ffffff, 0 0 50px #55ff55; }
+}
+
+#win-art {
+    width: 200px;
+    height: 150px;
+    margin: 15px;
+}
+
+#win-message {
+    color: #ffffff;
+    font-size: 9px;
+    max-width: 550px;
+    line-height: 2.2;
+    margin-bottom: 15px;
+}
+
+#final-score {
+    color: #ffff55;
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #ffff55;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000033;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #5555ff 0%, #4444cc 100%);
+    border-radius: 5px;
+    border: 1px solid #7777ff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #7777ff 0%, #5555ff 100%);
+}
+
+/* Animations */
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.blink {
+    animation: blink 1s infinite;
+}
+
+/* Scanline effect overlay (optional retro feel) */
+#scene-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1) 0px,
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    pointer-events: none;
+    opacity: 0.3;
+}

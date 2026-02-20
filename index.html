@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The LISP Unicorn Quest - A Sierra-Style Adventure</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="title-screen" class="screen active">
+            <canvas id="title-canvas" width="384" height="240"></canvas>
+            <h1>The LISP Unicorn Quest</h1>
+            <p class="subtitle">A Magical Adventure in Programming</p>
+            <button id="start-btn">Start New Game</button>
+            <p class="instructions">Type commands like: LOOK, TALK TO UNICORN, GET DOUGHNUT, USE KEY</p>
+        </div>
+        
+        <div id="game-screen" class="screen">
+            <div id="scene-container">
+                <canvas id="game-canvas" width="384" height="240"></canvas>
+                <div id="scene-overlay"></div>
+            </div>
+            <div id="ui-panel">
+                <div id="message-box">
+                    <div id="message-text"></div>
+                </div>
+                <div id="input-area">
+                    <span class="prompt">&gt;</span>
+                    <input type="text" id="command-input" placeholder="Enter command..." autocomplete="off">
+                </div>
+                <div id="inventory-panel">
+                    <div id="inventory-label">Inventory:</div>
+                    <div id="inventory-items"></div>
+                </div>
+                <div id="score-panel">
+                    <span id="score">Score: 0</span>
+                    <span id="location"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="lisp-console" class="hidden">
+            <div id="lisp-header">
+                <span>LISP Magic Terminal</span>
+                <button id="close-lisp">X</button>
+            </div>
+            <div id="lisp-output"></div>
+            <div id="lisp-input-area">
+                <span class="lisp-prompt">LISP&gt;</span>
+                <input type="text" id="lisp-input" placeholder="Enter LISP expression..." autocomplete="off">
+            </div>
+            <div id="lisp-hint"></div>
+        </div>
+        
+        <div id="win-screen" class="screen">
+            <h1>Congratulations!</h1>
+            <div id="win-art"></div>
+            <p id="win-message"></p>
+            <p id="final-score"></p>
+            <button id="replay-btn">Play Again</button>
+        </div>
+    </div>
+    
+    <script src="ega-graphics.js"></script>
+    <script src="lisp-interpreter.js"></script>
+    <script src="game-engine.js"></script>
+    <script src="scenes.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

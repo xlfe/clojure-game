@@ -1,0 +1,19 @@
+{
+  "name": "clojure-quest",
+  "version": "1.0.0",
+  "description": "The Clojure Quest - An educational adventure game teaching Clojure",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "install": "^0.13.0",
+    "scittle": "^0.8.31",
+    "wrangler": "^4.67.0"
+  }
+}
